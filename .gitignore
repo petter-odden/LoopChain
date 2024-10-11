@@ -1,0 +1,55 @@
+# Node modules (if you're using npm)
+node_modules/
+
+# Build output
+dist/
+build/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Chrome extension specific
+*.pem
+*.crx
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# Environment variables
+.env
+
+# Compiled source
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# Packages
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Debug files
+debug.log
+
+# Optional: Ignore all .txt files
+# *.txt
