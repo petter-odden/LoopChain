@@ -5,7 +5,8 @@
     "description": "A Chrome extension for quick access to your favorite websites and tools.",
     "permissions": [
         "storage",
-        "tabs"
+        "tabs",
+        "activeTab"
     ],
     "action": {
         "default_popup": "popup.html",

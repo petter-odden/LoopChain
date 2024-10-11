@@ -12,3 +12,6 @@ and this project adheres to [Chrome Extension Versioning](https://developer.chro
 - "Set to current time" buttons for easy marker setting
 - Time display in MM:SS.mmm format
 - Added proper extension icons in multiple sizes (16x16, 48x48, 128x128)
+- Implemented sequence updating functionality
+- Added sequence deletion feature
+- Improved synchronization between popup and content script

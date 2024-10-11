@@ -3,6 +3,11 @@ let loopSequences = [];
 let currentSequenceIndex = 0;
 let isLooping = false;
 
+// Load sequences from storage
+chrome.storage.local.get(['sequences'], function(result) {
+    loopSequences = result.sequences || [];
+});
+
 function findMediaElements() {
     const videos = Array.from(document.getElementsByTagName('video'));
     const audios = Array.from(document.getElementsByTagName('audio'));
@@ -74,6 +79,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
             sendResponse({ success: true });
             break;
     }
+    return true;
 });
 
 window.addEventListener('load', findMediaElements);

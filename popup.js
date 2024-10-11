@@ -1,10 +1,20 @@
 let sequences = [];
 
 document.addEventListener('DOMContentLoaded', async () => {
+    // Load sequences from storage
+    chrome.storage.local.get(['sequences'], function(result) {
+        sequences = result.sequences || [];
+        updateSequencesDisplay();
+    });
+
     const tabs = await chrome.tabs.query({ active: true, currentWindow: true });
     const response = await chrome.tabs.sendMessage(tabs[0].id, { action: 'GET_SEQUENCES' });
-    sequences = response.sequences || [];
-    updateSequencesDisplay();
+    if (response && response.sequences) {
+        sequences = response.sequences;
+        updateSequencesDisplay();
+        // Save sequences to storage
+        chrome.storage.local.set({sequences: sequences});
+    }
 });
 
 document.getElementById('addSequence').addEventListener('click', async () => {
@@ -21,6 +31,7 @@ document.getElementById('addSequence').addEventListener('click', async () => {
             startTime,
             endTime
         });
+        saveSequences();
         updateSequencesDisplay();
     }
 });
@@ -69,6 +80,30 @@ function MMSSmmToSeconds(timeString) {
     return parseInt(minutes) * 60 + parseInt(seconds) + parseInt(milliseconds) / 1000;
 }
 
+async function updateSequence(index, startTime, endTime) {
+    const tabs = await chrome.tabs.query({ active: true, currentWindow: true });
+    await chrome.tabs.sendMessage(tabs[0].id, {
+        action: 'UPDATE_SEQUENCE',
+        index,
+        startTime,
+        endTime
+    });
+    sequences[index] = { start: startTime, end: endTime };
+    saveSequences();
+    updateSequencesDisplay();
+}
+
+async function removeSequence(index) {
+    const tabs = await chrome.tabs.query({ active: true, currentWindow: true });
+    await chrome.tabs.sendMessage(tabs[0].id, {
+        action: 'REMOVE_SEQUENCE',
+        index
+    });
+    sequences.splice(index, 1);
+    saveSequences();
+    updateSequencesDisplay();
+}
+
 function updateSequencesDisplay() {
     const container = document.getElementById('sequences');
     container.innerHTML = '';
@@ -90,41 +125,25 @@ function updateSequencesDisplay() {
 
         div.querySelector('.start-time').addEventListener('change', async (e) => {
             const newStart = MMSSmmToSeconds(e.target.value);
-            const tabs = await chrome.tabs.query({ active: true, currentWindow: true });
-            await chrome.tabs.sendMessage(tabs[0].id, {
-                action: 'UPDATE_SEQUENCE',
-                index,
-                startTime: newStart,
-                endTime: seq.end
-            });
-            sequences[index].start = newStart;
+            await updateSequence(index, newStart, seq.end);
         });
 
         div.querySelector('.end-time').addEventListener('change', async (e) => {
             const newEnd = MMSSmmToSeconds(e.target.value);
-            const tabs = await chrome.tabs.query({ active: true, currentWindow: true });
-            await chrome.tabs.sendMessage(tabs[0].id, {
-                action: 'UPDATE_SEQUENCE',
-                index,
-                startTime: seq.start,
-                endTime: newEnd
-            });
-            sequences[index].end = newEnd;
+            await updateSequence(index, seq.start, newEnd);
         });
 
         div.querySelector('.set-current-time.start').addEventListener('click', () => setCurrentTime(index, true));
         div.querySelector('.set-current-time.end').addEventListener('click', () => setCurrentTime(index, false));
 
         div.querySelector('.remove-sequence').addEventListener('click', async () => {
-            const tabs = await chrome.tabs.query({ active: true, currentWindow: true });
-            await chrome.tabs.sendMessage(tabs[0].id, {
-                action: 'REMOVE_SEQUENCE',
-                index
-            });
-            sequences.splice(index, 1);
-            updateSequencesDisplay();
+            await removeSequence(index);
         });
 
         container.appendChild(div);
     });
+}
+
+function saveSequences() {
+    chrome.storage.local.set({sequences: sequences});
 }
