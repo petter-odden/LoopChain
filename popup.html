@@ -1,29 +1,70 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LoopChain</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         body {
             width: 300px;
-            padding: 10px;
+            padding: 16px;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
         }
-
+        h2 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
         .sequence {
-            margin-bottom: 10px;
+            background-color: #fff;
+            border-radius: 4px;
+            padding: 12px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-
-        .set-current-time {
-            margin-left: 5px;
+        input[type="text"] {
+            width: 80px;
+            padding: 4px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 16px;
+        }
+        .remove-sequence {
+            background-color: #e74c3c;
+        }
+        .remove-sequence:hover {
+            background-color: #c0392b;
         }
     </style>
 </head>
 
 <body>
-    <h2>Media Looper</h2>
+    <h2>LoopChain</h2>
     <div id="sequences"></div>
-    <button id="addSequence">Add Sequence</button>
-    <button id="startLoop">Start Loop</button>
-    <button id="stopLoop">Stop Loop</button>
+    <div class="controls">
+        <button id="addSequence">Add Sequence</button>
+        <button id="startLoop">Start Loop</button>
+        <button id="stopLoop">Stop Loop</button>
+    </div>
     <script src="popup.js"></script>
 </body>
 

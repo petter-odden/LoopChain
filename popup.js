@@ -76,13 +76,17 @@ function updateSequencesDisplay() {
         const div = document.createElement('div');
         div.className = 'sequence';
         div.innerHTML = `
-      Sequence ${index + 1}: 
-      <input type="text" value="${secondsToMMSSmmm(seq.start)}" class="start-time"> to 
-      <input type="text" value="${secondsToMMSSmmm(seq.end)}" class="end-time">
-      <button class="set-current-time start">Set Start</button>
-      <button class="set-current-time end">Set End</button>
-      <button class="remove-sequence">Remove</button>
-    `;
+            <div>Sequence ${index + 1}</div>
+            <div>
+                <input type="text" value="${secondsToMMSSmmm(seq.start)}" class="start-time"> to 
+                <input type="text" value="${secondsToMMSSmmm(seq.end)}" class="end-time">
+            </div>
+            <div>
+                <button class="set-current-time start">Set Start</button>
+                <button class="set-current-time end">Set End</button>
+                <button class="remove-sequence">Remove</button>
+            </div>
+        `;
 
         div.querySelector('.start-time').addEventListener('change', async (e) => {
             const newStart = MMSSmmToSeconds(e.target.value);
