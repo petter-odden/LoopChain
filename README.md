@@ -1,12 +1,15 @@
 # LoopChain Chrome Extension
 
-LoopChain is a Chrome extension that enhances your browsing experience by providing quick access to your favorite websites and tools.
+LoopChain is a Chrome extension that enhances your media playback experience by allowing you to create and manage custom loop sequences for audio and video content.
 
 ## Features
 
-- Quick access to frequently visited websites
-- Customizable shortcuts
-- Easy-to-use popup interface
+- Create multiple loop sequences for any audio or video content on web pages
+- Easily set start and end points for each loop sequence
+- Start and stop looping with a single click
+- Automatically switch between multiple loop sequences
+- Edit and delete existing loop sequences
+- Persist loop sequences across browser sessions
 
 ## Installation
 
@@ -17,7 +20,12 @@ LoopChain is a Chrome extension that enhances your browsing experience by provid
 
 ## Usage
 
-Click on the LoopChain icon in your Chrome toolbar to open the popup interface. From there, you can access your shortcuts and customize the extension settings.
+1. Navigate to a web page with audio or video content.
+2. Click on the LoopChain icon in your Chrome toolbar to open the popup interface.
+3. Use the "Add Sequence" button to create a new loop sequence.
+4. Set the start and end times for each sequence using the input fields or the "Set Start" and "Set End" buttons.
+5. Click "Start Loop" to begin looping through your sequences.
+6. Click "Stop Loop" to stop the looping process.
 
 ## Version History
 
